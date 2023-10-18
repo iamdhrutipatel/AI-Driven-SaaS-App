@@ -1,6 +1,4 @@
-#!/bin/sh
-'''exec' "/Users/dhrutipatel/FullStack Project/AI-Driven-SaaS-App/myenv/bin/python3" "$0" "$@"
-' '''
+#!/Users/dhrutipatel/FullStack-Project/AI-Driven-SaaS-App/myenv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
