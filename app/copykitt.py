@@ -4,7 +4,7 @@ import openai
 import argparse
 import re
 
-MAX_INPUT_LENGTH = 12
+MAX_INPUT_LENGTH = 20
 # Main Function For Entry Point
 def main():
     print("Running Copy Kitt")
@@ -15,11 +15,11 @@ def main():
 
     if validate_length(user_input):
         brand = branding_snippet(user_input)
+        brand_name = branding_name(user_input)
         keywords = generate_keywords(user_input)
-        # logo = branding_logo(user_input)
         print(brand)
+        print(brand_name)
         print(keywords)
-        # print(logo)
     else:
         raise ValueError(f"Input length is too long. Must be under {MAX_INPUT_LENGTH}. Submiteed input is {user_input}.")
 
@@ -31,11 +31,11 @@ def generate_keywords(prompt: str) -> List[str]:
     # Load your API key from an environment variable or secret management service
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    prompt_engineering = f"Think about the core qualities, emotions, and values associated with the {prompt}. Consider its unique characteristics, what sets it apart, and how it connects with its target audience. Now, list down related branding keywords that capture the essence of the {prompt} and can be impactful for branding purposes."
+    prompt_engineering = f"Generate a list of relevant keywords that align with our brand's identity and relate to the prompt: {prompt}. These keywords should encompass the core themes, products, or services associated with our brand and be suitable for search engine optimization and online marketing efforts."
     response = openai.Completion.create(
       model="gpt-3.5-turbo-instruct",
       prompt=prompt_engineering,
-      max_tokens=32
+      max_tokens=40
     )
 
     # Extracting the response generated and modifying
@@ -48,15 +48,36 @@ def generate_keywords(prompt: str) -> List[str]:
     
     return keywords_array
 
+def branding_name(prompt: str) -> List[str]:
+    # Load your API key from an environment variable or secret management service
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+
+    prompt_engineering = f"Generate a list of unique and memorable branding name for {prompt}. The branding name should encapsulate the essence of the brand, be easy to pronounce and remember, and should resonate with our target audience."
+    response = openai.Completion.create(
+      model="gpt-3.5-turbo-instruct",
+      prompt=prompt_engineering,
+      max_tokens=40
+    )
+
+    # Extracting the response generated and modifying
+    name_text: str = response["choices"][0]["text"]
+    name_text = name_text.strip()
+    name_array = re.split(",|\n|;|-", name_text)
+    name_array = [item.split('. ', 1)[1] if '. ' in item else item for item in name_array]
+    name_array = [k.lower().strip() for k in name_array]
+    name_array = [k for k in name_array if len(k) > 0]
+    
+    return name_array
+
 def branding_snippet(prompt: str) -> str:
     # Load your API key from an environment variable or secret management service
     openai.api_key = os.getenv("OPENAI_API_KEY")
 
-    prompt_engineering = f"Craft a concise and captivating branding snippet that embodies the essence of {prompt}. This snippet should resonate with the target audience, highlight the unique aspects of {prompt}, and be memorable enough to leave a lasting impression. Remember, brevity is key, and every word should have a purpose."
+    prompt_engineering = f"Create a compelling branding snippet that encapsulates the essence of our brand based on the following prompt: {prompt}. The branding snippet should be engaging, concise, and memorable, representing our brand's unique value proposition."
     response = openai.Completion.create(
       model="gpt-3.5-turbo-instruct",
       prompt=prompt_engineering,
-      max_tokens=35
+      max_tokens=34
     )
 
     # Extracting the response generated and modifying
