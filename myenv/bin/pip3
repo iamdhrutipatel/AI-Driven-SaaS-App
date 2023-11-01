@@ -1,4 +1,4 @@
-#!/Users/dhrutipatel/FullStack-Project/AI-Driven-SaaS-App/myenv/bin/python3
+#!/Users/dhrutipatel/FullStack-Project/AI-Driven-SaaS-App/app/myenv/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
