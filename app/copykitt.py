@@ -4,33 +4,26 @@ import openai
 import argparse
 import re
 import asyncio
+from fastapi import HTTPException
 
 MAX_INPUT_LENGTH = 30
 
-
-def validate_length(prompt: str) -> bool:
-    return len(prompt) <= MAX_INPUT_LENGTH
-
+def validate_input_length(prompt: str):
+    print(len(prompt))
+    if len(prompt) >= MAX_INPUT_LENGTH:
+        return False
+    return True
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
-        
+
 async def api_end_point(prompt_engineering: str, max_tokens: int) -> dict:
-    try:
-        response = openai.Completion.create(
-            model="gpt-3.5-turbo-instruct",
-            prompt=prompt_engineering,
-            max_tokens=max_tokens,
-        )
-        return response
-    except openai.error.APIError as error:
-        print(f"OpenAI API returned an API Error: {error}")
-        pass
-    except openai.error.APIConnectionError as error:
-        print(f"Failed to connect to OpenAI API: {error}")
-        pass
-    except openai.error.RateLimitError as error:
-        print(f"OpenAI API request exceeded rate limit: {error}")
-        pass
+    response = openai.Completion.create(
+        model="gpt-3.5-turbo-instruct",
+        prompt=prompt_engineering,
+        max_tokens=max_tokens,
+    )
+    return response
+
 
 async def branding_snippet(prompt: str) -> str:
     prompt_engineering = f"Create a compelling branding snippet that encapsulates the essence of our brand based on the following prompt: {prompt}. The branding snippet should be engaging, concise, and memorable, representing our brand's unique value proposition."
@@ -44,6 +37,7 @@ async def branding_snippet(prompt: str) -> str:
         branding_text += "..."
 
     return branding_text
+
 
 async def branding_name(prompt: str) -> List[str]:
     prompt_engineering = f"Generate a list of unique and memorable branding name for {prompt}. The branding name should encapsulate the essence of the brand, be easy to pronounce and remember, and should resonate with our target audience."
@@ -60,6 +54,7 @@ async def branding_name(prompt: str) -> List[str]:
 
     return name_array
 
+
 async def generate_keywords(prompt: str) -> List[str]:
     prompt_engineering = f"Generate a list of relevant keywords that align with our brand's identity and relate to the prompt: {prompt}. These keywords should encompass the core themes, products, or services associated with our brand and be suitable for search engine optimization and online marketing efforts."
     response = await api_end_point(prompt_engineering, max_tokens=36)
@@ -74,6 +69,7 @@ async def generate_keywords(prompt: str) -> List[str]:
     keywords_array = [k for k in keywords_array if len(k) > 0]
 
     return keywords_array
+
 
 # def branding_logo(prompt: str) -> list:
 #     prompt_engineering = f"Design a branding logo for a {prompt}. Create an iconic logo that conveys the essence of the {prompt}, its unique qualities, and the emotions it should evoke. Keep in mind that the logo should be memorable and instantly recognizable."
@@ -98,14 +94,16 @@ async def main():
     parser.add_argument("--input", "-i", type=str, required=True)
     args = parser.parse_args()
     user_input = args.input
+    print(user_input)
 
-    if validate_length(user_input):
+    if validate_input_length(user_input):
         await branding_snippet(user_input)
         await branding_name(user_input)
         await generate_keywords(user_input)
     else:
-        raise ValueError(
-            f"Input length is too long. Must be under {MAX_INPUT_LENGTH}. Submiteed input is {user_input}."
+        raise HTTPException(
+            status_code=400,
+            detail="Input length is too long. Must be under {MAX_INPUT_LENGTH} charcters.",
         )
 
 if __name__ == "__main__":
