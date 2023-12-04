@@ -87,6 +87,11 @@ async def main():
     user_input = args.input
 
     try:
+        user_input = validate_prompt(user_input)
+    except CustomError as custom_error:
+        raise custom_error
+
+    try:
         snippet = await branding_snippet(user_input)
         name = await branding_name(user_input)
         keywords = await generate_keywords(user_input)

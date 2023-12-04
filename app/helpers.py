@@ -31,3 +31,5 @@ def validate_prompt(input_str: str):
     
     if not re.match("^[a-zA-Z0-9 ]+$", input_str):
         raise CustomError(status_code=400, detail=f"Invalid characters: Only alphanumeric characters are allowed.")
+
+    return input_str

@@ -23,7 +23,7 @@ async def generate_keywords_api(prompt: str):
 @app.get("/generate_all_together")
 async def generate_all_together_api(prompt: str):
     try:
-        validate_prompt(prompt)
+        prompt = validate_prompt(prompt)
     except CustomError as custom_error:
         raise custom_error
     
