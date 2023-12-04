@@ -33,6 +33,7 @@ async def branding_snippet(prompt: str) -> str:
 
         branding_text = response["choices"][0]["text"]
         branding_text = branding_text.strip()
+        branding_text = branding_text.replace('"', '')
         last_char = branding_text[-1]
 
         if last_char not in {".", ",", "?"}:
@@ -53,8 +54,8 @@ async def branding_name(prompt: str) -> List[str]:
         name_array = [
             item.split(". ", 1)[1] if ". " in item else item for item in name_array
         ]
-        name_array = [k.lower().strip() for k in name_array]
-        name_array = [k for k in name_array if len(k) > 0]
+        name_array = [k.lower().strip().replace('"', '') for k in name_array]
+        name_array = [k for k in name_array if len(k) > 4]
 
         return name_array
     except CustomError as custom_error:
@@ -72,8 +73,8 @@ async def generate_keywords(prompt: str) -> List[str]:
         keywords_array = [
             item.split(". ", 1)[1] if ". " in item else item for item in keywords_array
         ]
-        keywords_array = [k.lower().strip() for k in keywords_array]
-        keywords_array = [k for k in keywords_array if len(k) > 0]
+        keywords_array = [k.lower().strip().replace('"', '') for k in keywords_array]
+        keywords_array = [k for k in keywords_array if len(k) > 4]
 
         return keywords_array
     except CustomError as custom_error:
