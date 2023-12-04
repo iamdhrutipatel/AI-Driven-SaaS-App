@@ -28,12 +28,11 @@ async def generate_all_together_api(prompt: str):
         raise custom_error
     
     try:
-        snippet = await branding_snippet(prompt)
-        names = await branding_name(prompt)
-        keywords = await generate_keywords(prompt)
-    except SpecificException as specific_error:
-        raise CustomError(status_code=400, detail=f"Error in processing input: {str(specific_error)}")
+        snippet = await branding_snippet_api(prompt)
+        names = await branding_name_api(prompt)
+        keywords = await generate_keywords_api(prompt)
     except Exception as error:
-        raise CustomError(status_code=500, detail="Internal Server Error!")
+        status_code = getattr(error, "status_code", 500)
+        raise CustomError(status_code=status_code, detail="Internal Server Error!")
 
     return {"snippet": snippet, "names": names, "keywords": keywords}

@@ -29,5 +29,5 @@ def validate_prompt(input_str: str):
     if dec_lan is None or not (dec_lan.lang == "en") and not (dec_lan.confidence == 1):
             raise CustomError(status_code=400, detail=f"Invalid input language: Language must be English.")
     
-    # if not re.match("^[a-zA-Z0-9 ]+$", input_str):
-    #     raise CustomError(status_code=400, detail=f"Invalid characters: Only alphanumeric characters are allowed.")
+    if not re.match("^[a-zA-Z0-9 ]+$", input_str):
+        raise CustomError(status_code=400, detail=f"Invalid characters: Only alphanumeric characters are allowed.")
