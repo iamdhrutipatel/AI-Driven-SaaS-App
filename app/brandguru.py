@@ -6,7 +6,7 @@ import re
 import asyncio
 from helpers import CustomError, validate_prompt
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = "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"
 
 async def api_end_point(prompt_engineering: str, max_tokens: int) -> dict:
     try:
