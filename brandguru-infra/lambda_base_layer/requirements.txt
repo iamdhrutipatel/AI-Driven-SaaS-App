@@ -1,0 +1,5 @@
+fastapi==0.99.0
+pydantic-core==2.10.1
+mangum==0.17.0
+openai==0.27.0
+googletrans==4.0.0-rc1
