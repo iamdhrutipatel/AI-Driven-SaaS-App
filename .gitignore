@@ -2,3 +2,4 @@
 *.zip
 saasenv/
 app/__pycache__/
+.DS_Store
