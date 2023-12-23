@@ -3,6 +3,7 @@ import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda' // Serverless compute
 import * as dotenv from 'dotenv';
 dotenv.config();
+import * as apiGateway from "aws-cdk-lib/aws-apigateway";
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class BrandguruInfraStack extends cdk.Stack {
@@ -26,5 +27,13 @@ export class BrandguruInfraStack extends cdk.Stack {
         OPENAI_API_KEY: process.env.OPENAI_API_KEY || '',
       },
     });
+
+    const brandGuruApi = new apiGateway.RestApi(this, "RestApi", {
+      restApiName: "BrandGuru API",
+    });
+
+    brandGuruApi.root.addProxy({
+      defaultIntegration: new apiGateway.LambdaIntegration(apiLambda),
+    })
   }
 }
