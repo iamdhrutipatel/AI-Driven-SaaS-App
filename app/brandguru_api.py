@@ -2,10 +2,19 @@ from fastapi import FastAPI, HTTPException
 from helpers import CustomError, validate_prompt
 from brandguru import branding_snippet, branding_name, generate_keywords
 from mangum import Mangum
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 handler = Mangum(app)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/branding_snippet")
 async def branding_snippet_api(prompt: str):
