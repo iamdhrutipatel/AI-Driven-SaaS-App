@@ -4,16 +4,18 @@ interface FormProps {
   onSubmit: any;
   isLoading: boolean;
   charLimit: number;
+  detail: string;
 }
 
 const Form: React.FC<FormProps> = (props) => {
-
   const isPromptValid = props.prompt.length <= props.charLimit;
   const updatePromptValue = (text: string) => {
-    if (text.length <= props.charLimit){
+    if (text.length <= props.charLimit) {
       props.setPrompt(text);
     }
-  }
+  };
+
+  const errorShowFlag = !props.detail;
 
   return (
     <>
@@ -28,8 +30,15 @@ const Form: React.FC<FormProps> = (props) => {
         value={props.prompt}
         placeholder='hand embriodery busines'
         onChange={(e) => updatePromptValue(e.currentTarget.value)}></input>
-        <div>{props.prompt.length}/{props.charLimit}</div>
-      <button onClick={props.onSubmit} disabled={props.isLoading || !isPromptValid}>Submit</button>
+      <div>
+        {props.prompt.length}/{props.charLimit}
+      </div>
+      <p hidden={errorShowFlag}>{props.detail}</p>
+      <button
+        onClick={props.onSubmit}
+        disabled={props.isLoading || !isPromptValid}>
+        Submit
+      </button>
     </>
   );
 };

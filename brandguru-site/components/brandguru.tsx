@@ -7,6 +7,7 @@ const BrandGuru: React.FC = () => {
   const [snippet, setSnippet] = React.useState("");
   const [names, setBrandNames] = React.useState([]);
   const [keywords, setKeywords] = React.useState([]);
+  const [detail, setDetail] = React.useState("");
   const [hasResults, setHasResults] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -21,11 +22,12 @@ const BrandGuru: React.FC = () => {
   };
 
   const onResult = (data: any) => {
-    setSnippet(data.snippet);
-    setBrandNames(data.names);
-    setKeywords(data.keywords);
-    setHasResults(true);
-    setIsLoading(false);
+      setSnippet(data.snippet);
+      setBrandNames(data.names);
+      setKeywords(data.keywords);
+      setDetail(data.detail);
+      setHasResults(true);
+      setIsLoading(false);
   };
 
   const onReset = () => {
@@ -36,7 +38,7 @@ const BrandGuru: React.FC = () => {
 
   let displayedElement = null;
 
-  if (hasResults) {
+  if (hasResults && snippet) {
     displayedElement = (
       <Results
         prompt={prompt}
@@ -46,7 +48,8 @@ const BrandGuru: React.FC = () => {
         onBack={onReset}
       />
     );
-  } else {
+  } 
+  else {
     displayedElement = (
       <Form
         prompt={prompt}
@@ -54,6 +57,7 @@ const BrandGuru: React.FC = () => {
         onSubmit={onSubmit}
         isLoading={isLoading}
         charLimit={CHAR_LIMIT}
+        detail={detail}
       />
     );
   }
