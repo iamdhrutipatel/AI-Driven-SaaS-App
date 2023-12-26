@@ -1,6 +1,8 @@
 import React from "react";
 import Form from "@/components/form";
 import Results from "@/components/results";
+import Image from "next/image";
+import logo from "@/public/BrandGuruLogo.png";
 
 const BrandGuru: React.FC = () => {
   const [prompt, setPrompt] = React.useState("");
@@ -22,12 +24,12 @@ const BrandGuru: React.FC = () => {
   };
 
   const onResult = (data: any) => {
-      setSnippet(data.snippet);
-      setBrandNames(data.names);
-      setKeywords(data.keywords);
-      setDetail(data.detail);
-      setHasResults(true);
-      setIsLoading(false);
+    setSnippet(data.snippet);
+    setBrandNames(data.names);
+    setKeywords(data.keywords);
+    setDetail(data.detail);
+    setHasResults(true);
+    setIsLoading(false);
   };
 
   const onReset = () => {
@@ -48,8 +50,7 @@ const BrandGuru: React.FC = () => {
         onBack={onReset}
       />
     );
-  } 
-  else {
+  } else {
     displayedElement = (
       <Form
         prompt={prompt}
@@ -62,11 +63,28 @@ const BrandGuru: React.FC = () => {
     );
   }
 
+  const gradientTextStyle =
+    "text-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500 font-light w-fit mx-auto";
+
   return (
-    <>
-      <h1>BrandGuru - An AI Assistant for Marketing</h1>
-      {displayedElement}
-    </>
+    <div className='h-screen flex'>
+      <div className='max-w-md m-auto p-2'>
+        <div className='bg-gray-50 p-6 rounded-md text-black'>
+          <div className='flex flex-col items-center justify-center text-center my-6'>
+            <Image
+              src={logo}
+              width={140}
+              alt={"BrandGuru Logo"}
+            />
+            <h1 className={gradientTextStyle + " text-4xl font-medium"}>
+              BrandGuru
+            </h1>
+            <div className={gradientTextStyle + " text-base font-normal"}>Your AI Branding Assistant</div>
+          </div>
+          {displayedElement}
+        </div>
+      </div>
+    </div>
   );
 };
 

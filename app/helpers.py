@@ -10,26 +10,26 @@ MAX_INPUT_LENGTH = 40
 
 def validate_prompt(input_str: str):
     if not input_str:
-        raise CustomError(status_code=400, detail=f"Invalid input: Please provide a non-empty string.")
+        raise CustomError(status_code=400, detail=f"Input should be a non-empty string")
 
     if not isinstance(input_str, str):
-        raise CustomError(status_code=400, detail=f"Invalid input type: Input must be a string.")
+        raise CustomError(status_code=400, detail=f"Input must be a string")
 
     if len(input_str.strip()) == 0:
-        raise CustomError(status_code=400, detail=f"Invalid input: Please provide a non-empty and non-whitespace string.")
+        raise CustomError(status_code=400, detail=f"Input should be a non-empty and non-whitespace string")
 
     input_str = input_str.strip()
 
     if len(input_str) > MAX_INPUT_LENGTH:
-        raise CustomError(status_code=400, detail=f"Input length exceeds maximum allowed. Maximum allowed length: {MAX_INPUT_LENGTH} characters.")
+        raise CustomError(status_code=400, detail=f"`Input must be less than {MAX_INPUT_LENGTH} characters")
 
     detector = Translator()
     dec_lan = detector.detect(input_str)
 
     if dec_lan is None or not (dec_lan.lang == "en") and not (dec_lan.confidence == 1):
-            raise CustomError(status_code=400, detail=f"Invalid input language: Language must be English.")
+            raise CustomError(status_code=400, detail=f"Input language must be English")
     
     if not re.match("^[a-zA-Z0-9 ]+$", input_str):
-        raise CustomError(status_code=400, detail=f"Invalid characters: Only alphanumeric characters are allowed.")
+        raise CustomError(status_code=400, detail=f"Only alphanumeric characters are allowed")
 
     return input_str
