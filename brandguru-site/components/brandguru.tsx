@@ -63,23 +63,21 @@ const BrandGuru: React.FC = () => {
     );
   }
 
-  const gradientTextStyle =
-    "text-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500 font-light w-fit mx-auto";
+  // const gradientTextStyle =
+  //   "text-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500 font-light w-fit mx-auto";
 
   return (
     <div className='h-screen flex'>
       <div className='max-w-md m-auto p-2'>
         <div className='bg-gray-50 p-6 rounded-md text-black'>
           <div className='flex flex-col items-center justify-center text-center my-6'>
-            <Image
-              src={logo}
-              width={140}
-              alt={"BrandGuru Logo"}
-            />
-            <h1 className={gradientTextStyle + " text-4xl font-medium"}>
+            <Image src={logo} width={140} alt={"BrandGuru Logo"} />
+            <h1 className={"gradientTextStyle" + " text-4xl font-medium"}>
               BrandGuru
             </h1>
-            <div className={gradientTextStyle + " text-base font-normal"}>Your AI Branding Assistant</div>
+            <div className={"gradientTextStyle" + " text-base font-normal"}>
+              Your AI Branding Assistant
+            </div>
           </div>
           {displayedElement}
         </div>

@@ -15,29 +15,26 @@ const Form: React.FC<FormProps> = (props) => {
     }
   };
 
-  let statusColor = 'text-cyan-600';
-  let statusColorChar = '';
+  let statusColor = "textCyan";
+  let statusColorChar = "";
   let statusText = null;
   if(!isPromptValid){
-    statusColor = 'text-red-600';
-    statusColorChar = 'text-red-600';
+    statusColor = "textError";
+    statusColorChar = "textError";
     statusText = `Input must be less than ${props.charLimit} characters`;
   }
   else {
     const errorShowFlag = !props.detail;
     if (!errorShowFlag) {
-      statusColor = 'text-red-600';
-      statusColorChar = 'text-cyan-600';
+      statusColor = "textError";
+      statusColorChar = "textCyan";
       statusText = `${props.detail}`;
     }
   }
 
-  const gradientTextStyle =
-    "text-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-cyan-600 font-light w-fit mx-auto";
-
   return (
     <>
-      <div className={gradientTextStyle + "mb-6 text-base font-normal"}>
+      <div className={"gradientTextStyle" + " text-base font-normal"}>
         <p>
           {" "}
           Share your brand&apos;s story; I&apos;ll craft a snippet, suggest some
@@ -46,7 +43,7 @@ const Form: React.FC<FormProps> = (props) => {
       </div>
 
       <input
-        className='mt-2 p-2 w-full border-2 border-cyan-500 rounded-md bg-slate text-blue-900  text-sm placeholder-slate-400'
+        className="formBorder"
         type='text'
         value={props.prompt}
         placeholder='AI startup to detect plagarism'
@@ -60,7 +57,7 @@ const Form: React.FC<FormProps> = (props) => {
       </div>
 
       <button
-      className="bg-gradient-to-r from-teal-400 to-blue-500 disabled:opacity-50 w-full p-2 rounded-md text-white text-lg"
+      className="buttonSubmitBack"
         onClick={props.onSubmit}
         disabled={props.isLoading || !isPromptValid}>
         Submit
