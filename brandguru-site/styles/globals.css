@@ -41,7 +41,11 @@ body {
   }
 
   .footer{
-    @apply text-slate-50 text-center font-normal mb-6
+    @apply text-slate-50 text-center font-normal mt-10;
+  }
+
+  .buttonSignOut {
+    @apply bg-gradient-to-r from-teal-400 to-blue-500 p-2 w-auto rounded-md text-white text-lg mt-2;
   }
 }
 
