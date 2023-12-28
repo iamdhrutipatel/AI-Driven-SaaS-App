@@ -40,6 +40,6 @@ BrandGuru is designed to be an AI assistant for marketing professionals, providi
 This project is licensed under the [MIT License](LICENSE).
 
 ## Developers
-1. [Dhruti Patel](https://github.com/iamdhrutipatel)
+[Dhruti Patel](https://github.com/iamdhrutipatel)
 
 Thank you for using BrandGuru! We hope it enhances your marketing workflow with powerful AI-driven content generation.
