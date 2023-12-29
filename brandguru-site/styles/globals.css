@@ -41,7 +41,7 @@ body {
   }
 
   .footer{
-    @apply text-slate-50 text-center font-normal mt-10;
+    @apply text-slate-50 text-center font-normal mb-5;
   }
 
   .buttonSignOut {

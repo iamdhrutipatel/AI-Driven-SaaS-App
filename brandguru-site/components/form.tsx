@@ -18,12 +18,11 @@ const Form: React.FC<FormProps> = (props) => {
   let statusColor = "textCyan";
   let statusColorChar = "";
   let statusText = null;
-  if(!isPromptValid){
+  if (!isPromptValid) {
     statusColor = "textError";
     statusColorChar = "textError";
     statusText = `Input must be less than ${props.charLimit} characters`;
-  }
-  else {
+  } else {
     const errorShowFlag = !props.detail;
     if (!errorShowFlag) {
       statusColor = "textError";
@@ -43,7 +42,7 @@ const Form: React.FC<FormProps> = (props) => {
       </div>
 
       <input
-        className="formBorder"
+        className='formBorder'
         type='text'
         value={props.prompt}
         placeholder='AI startup to detect plagarism'
@@ -57,7 +56,7 @@ const Form: React.FC<FormProps> = (props) => {
       </div>
 
       <button
-      className="buttonSubmitBack"
+        className='buttonSubmitBack'
         onClick={props.onSubmit}
         disabled={props.isLoading || !isPromptValid}>
         Submit

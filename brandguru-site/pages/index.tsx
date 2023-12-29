@@ -1,21 +1,35 @@
 import Head from "next/head";
 import Image from "next/image";
-import {Inter} from "next/font/google";
 import logo from "@/public/BrandGuruLogo.png";
 import Footer from "@/components/footer";
 import {intitFirebase} from "@/firebase/firebaseApp";
 import {getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useRouter} from "next/router";
-
-const inter = Inter({subsets: ["latin"]});
+import {useState} from "react";
 
 export default function Signin() {
   intitFirebase();
+
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
+
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
+  const [isSigningIn, setIsSigningIn] = useState(false);
+  const [error, setError] = useState("");
+
+  const signIn = async () => {
+    try {
+      setIsSigningIn(true);
+      await signInWithPopup(auth, provider);
+      router.push("/dashboard");
+    } catch (error) {
+      console.error(error);
+      setError("Failed to Sign In. Please try again!");
+      setIsSigningIn(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -29,10 +43,6 @@ export default function Signin() {
     router.push("/dashboard");
     return <div>Welcome {user.displayName}</div>;
   }
-
-  const signIn = async () => {
-    const result = await signInWithPopup(auth, provider);
-  };
 
   return (
     <>
@@ -56,9 +66,15 @@ export default function Signin() {
               <div className={"gradientTextStyle" + " text-base font-normal"}>
                 Your AI Branding Assistant
               </div>
-              <button className='buttonSubmitBack mt-6' onClick={signIn}>
+              <button
+                className='buttonSubmitBack mt-6'
+                onClick={signIn}
+                disabled={isSigningIn}>
                 SignIn with Google!
               </button>
+              {error && (
+                <div className='text-red-500 mt-6 font-bold'>{error}</div>
+              )}
             </div>
           </div>
         </div>

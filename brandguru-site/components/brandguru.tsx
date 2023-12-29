@@ -15,8 +15,8 @@ const BrandGuru: React.FC = () => {
 
   const CHAR_LIMIT: number = 40;
   const ENDPOINT: string = `https://494dlfchub.execute-api.us-west-1.amazonaws.com/prod/generate_all_together`;
+
   const onSubmit = () => {
-    console.log("Submitting: " + prompt);
     setIsLoading(true);
     fetch(`${ENDPOINT}?prompt=${prompt}`)
       .then((res) => res.json())
@@ -62,9 +62,6 @@ const BrandGuru: React.FC = () => {
       />
     );
   }
-
-  // const gradientTextStyle =
-  //   "text-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500 font-light w-fit mx-auto";
 
   return (
     <div className='h-screen flex'>
