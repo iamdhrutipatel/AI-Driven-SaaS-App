@@ -12,8 +12,6 @@
 
 BrandGuru is designed to be an AI assistant for marketing professionals, providing an efficient and intelligent solution for content generation. The platform focuses on creating brand-specific snippets, names, and keywords to enhance marketing strategies.
 
-zvchdkfjdszjkc zmckcm
-
 ## Key Technologies
 
 - Python Fast API
