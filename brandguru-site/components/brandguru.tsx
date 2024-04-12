@@ -9,6 +9,7 @@ const BrandGuru: React.FC = () => {
   const [snippet, setSnippet] = React.useState("");
   const [names, setBrandNames] = React.useState([]);
   const [keywords, setKeywords] = React.useState([]);
+  const [tagline, setTagline] = React.useState("");
   const [detail, setDetail] = React.useState("");
   const [hasResults, setHasResults] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -25,6 +26,7 @@ const BrandGuru: React.FC = () => {
 
   const onResult = (data: any) => {
     setSnippet(data.snippet);
+    setTagline(data.tagline);
     setBrandNames(data.names);
     setKeywords(data.keywords);
     setDetail(data.detail);
@@ -45,6 +47,7 @@ const BrandGuru: React.FC = () => {
       <Results
         prompt={prompt}
         snippet={snippet}
+        tagline={tagline}
         names={names}
         keywords={keywords}
         onBack={onReset}

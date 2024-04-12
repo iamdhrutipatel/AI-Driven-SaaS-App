@@ -3,15 +3,24 @@ import Image from "next/image";
 import logo from "@/public/BrandGuruLogo.png";
 import Footer from "@/components/footer";
 import {intitFirebase} from "@/firebase/firebaseApp";
-import {getAuth, signInWithPopup, GoogleAuthProvider} from "firebase/auth";
+import {
+  getAuth,
+  OAuthProvider,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+} from "firebase/auth";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useRouter} from "next/router";
 import {useState} from "react";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export default function Signin() {
   intitFirebase();
 
   const provider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+  const microsoftProvider = new OAuthProvider("microsoft.com");
   const auth = getAuth();
 
   const [user, loading] = useAuthState(auth);
@@ -31,6 +40,30 @@ export default function Signin() {
     }
   };
 
+  const githubsignIn = async () => {
+    try {
+      setIsSigningIn(true);
+      await signInWithPopup(auth, githubProvider);
+      router.push("/dashboard");
+    } catch (error) {
+      console.error(error);
+      setError("Failed to Sign In. Please try again!");
+      setIsSigningIn(false);
+    }
+  };
+
+  const microsoftsignIn = async () => {
+    try {
+      setIsSigningIn(true);
+      await signInWithPopup(auth, microsoftProvider);
+      router.push("/dashboard");
+    } catch (error) {
+      console.error(error);
+      setError("Failed to Sign In. Please try again!");
+      setIsSigningIn(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className='flex items-center justify-center h-screen'>
@@ -41,7 +74,7 @@ export default function Signin() {
 
   if (user) {
     router.push("/dashboard");
-    return <div>Welcome {user.displayName}</div>;
+    return <div>Welcome, {user.displayName}</div>;
   }
 
   return (
@@ -67,10 +100,23 @@ export default function Signin() {
                 Your AI Branding Assistant
               </div>
               <button
-                className='buttonSubmitBack mt-6'
+                className='buttonSubmitBack mt-4'
                 onClick={signIn}
                 disabled={isSigningIn}>
-                SignIn with Google!
+                <i className='fab fa-google'></i> Sign In with Google
+              </button>
+
+              <button
+                className='buttonSubmitBack mt-2'
+                onClick={githubsignIn}
+                disabled={isSigningIn}>
+                <i className='fab fa-github'></i> Sign In with GitHub
+              </button>
+              <button
+                className='buttonSubmitBack mt-2'
+                onClick={microsoftsignIn}
+                disabled={isSigningIn}>
+                <i className='fab fa-microsoft'></i> Sign In with Microsoft
               </button>
               {error && (
                 <div className='text-red-500 mt-6 font-bold'>{error}</div>
