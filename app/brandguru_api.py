@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from helpers import CustomError, validate_prompt
-from brandguru import branding_snippet, branding_name, generate_keywords
+from brandguru import branding_snippet, generate_tagline, branding_name, generate_keywords
 from mangum import Mangum
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -41,10 +41,11 @@ async def generate_all_together_api(prompt: str):
     
     try:
         snippet = await branding_snippet_api(prompt)
+        tagline = await generate_tagline(prompt)
         names = await branding_name_api(prompt)
         keywords = await generate_keywords_api(prompt)
     except Exception as error:
         status_code = getattr(error, "status_code", 500)
         raise CustomError(status_code=status_code, detail="Internal Server Error!")
 
-    return {"snippet": snippet, "names": names, "keywords": keywords}
+    return {"snippet": snippet, "tagline": tagline, "names": names, "keywords": keywords}

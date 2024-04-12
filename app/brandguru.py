@@ -29,24 +29,41 @@ async def api_end_point(prompt_engineering: str, max_tokens: int) -> dict:
 async def branding_snippet(prompt: str) -> str:
     try:
         prompt_engineering = f"Create a compelling branding snippet that encapsulates the essence of our brand based on the following prompt: {prompt}. The branding snippet should be engaging, concise, and memorable, representing our brand's unique value proposition."
-        response = await api_end_point(prompt_engineering, max_tokens=34)
+        response = await api_end_point(prompt_engineering, max_tokens=38)
 
         branding_text = response["choices"][0]["text"]
         branding_text = branding_text.strip()
         branding_text = branding_text.replace('"', '')
         last_char = branding_text[-1]
 
-        if last_char not in {".", ",", "?"}:
+        if last_char not in {".", ",", "?", "!"}:
             branding_text += "..."
 
         return branding_text
     except CustomError as custom_error:
         raise custom_error
 
+async def generate_tagline(prompt: str) -> str:
+    try:
+        prompt_engineering = f"Create a catchy tagline that complements the brand based on the following prompt: {prompt}. The tagline should be short, memorable, and capture the essence of the brand's message."
+        response = await api_end_point(prompt_engineering, max_tokens=20)
+
+        tagline_text = response["choices"][0]["text"]
+        tagline_text = tagline_text.strip()
+        tagline_text = tagline_text.replace('"', '')
+        last_char = tagline_text[-1]
+
+        if last_char not in {".", ",", "?", "!"}:
+            tagline_text += "..."
+
+        return tagline_text
+    except CustomError as custom_error:
+        raise custom_error
+
 async def branding_name(prompt: str) -> List[str]:
     try:
         prompt_engineering = f"Generate a list of unique and memorable branding name for {prompt}. The branding name should encapsulate the essence of the brand, be easy to pronounce and remember, and should resonate with our target audience."
-        response = await api_end_point(prompt_engineering, max_tokens=36)
+        response = await api_end_point(prompt_engineering, max_tokens=50)
 
         name_text: str = response["choices"][0]["text"]
         name_text = name_text.strip()
@@ -64,7 +81,7 @@ async def branding_name(prompt: str) -> List[str]:
 async def generate_keywords(prompt: str) -> List[str]:
     try:
         prompt_engineering = f"Generate a list of relevant keywords that align with our brand's identity and relate to the prompt: {prompt}. These keywords should encompass the core themes, products, or services associated with our brand and be suitable for search engine optimization and online marketing efforts."
-        response = await api_end_point(prompt_engineering, max_tokens=36)
+        response = await api_end_point(prompt_engineering, max_tokens=40)
 
         keywords_text: str = response["choices"][0]["text"]
         keywords_text = keywords_text.strip()
@@ -94,28 +111,13 @@ async def main():
         snippet = await branding_snippet(user_input)
         name = await branding_name(user_input)
         keywords = await generate_keywords(user_input)
+        tagline = await generate_tagline(user_input)
         print(snippet)
         print(name)
         print(keywords)
+        print(tagline)
     except CustomError as custom_error:
         raise custom_error
 
 if __name__ == "__main__":
     asyncio.run(main())
-
-# def branding_logo(prompt: str) -> list:
-#     prompt_engineering = f"Design a branding logo for a {prompt}. Create an iconic logo that conveys the essence of the {prompt}, its unique qualities, and the emotions it should evoke. Keep in mind that the logo should be memorable and instantly recognizable."
-#     response = openai.Image.create(
-#         prompt=prompt_engineering,
-#         n=2,
-#         size="1024x1024"
-#     )
-
-#     logo_urls = []
-
-#     if "data" in response and len(response["data"]) > 0:
-#         for data in response["data"]:
-#             if "url" in data:
-#                 logo_urls.append(data["url"])
-
-#     return logo_urls
