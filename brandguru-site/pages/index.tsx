@@ -33,9 +33,16 @@ export default function Signin() {
       setIsSigningIn(true);
       await signInWithPopup(auth, provider);
       router.push("/dashboard");
-    } catch (error) {
-      console.error(error);
-      setError("Failed to Sign In. Please try again!");
+    } catch (error: any) {
+      if (error.code) {
+        if (error.code === "auth/account-exists-with-different-credential") {
+          setError("Account exists with different provider. Try another sign-in method.");
+        } else {
+          setError("Failed to Sign In. Please try again!");
+        }
+      } else {
+        setError("Failed to Sign In. Please try again!");
+      }
       setIsSigningIn(false);
     }
   };
@@ -45,21 +52,35 @@ export default function Signin() {
       setIsSigningIn(true);
       await signInWithPopup(auth, githubProvider);
       router.push("/dashboard");
-    } catch (error) {
-      console.error(error);
-      setError("Failed to Sign In. Please try again!");
+    } catch (error: any) {
+      if (error.code) {
+        if (error.code === "auth/account-exists-with-different-credential") {
+          setError("Account exists with different provider. Try another sign-in method.");
+        } else {
+          setError("Failed to Sign In. Please try again!");
+        }
+      } else {
+        setError("Failed to Sign In. Please try again!");
+      }
       setIsSigningIn(false);
     }
-  };
+  };  
 
   const microsoftsignIn = async () => {
     try {
       setIsSigningIn(true);
       await signInWithPopup(auth, microsoftProvider);
       router.push("/dashboard");
-    } catch (error) {
-      console.error(error);
-      setError("Failed to Sign In. Please try again!");
+    } catch (error: any) {
+      if (error.code) {
+        if (error.code === "auth/account-exists-with-different-credential") {
+          setError("Account exists with different provider. Try another sign-in method.");
+        } else {
+          setError("Failed to Sign In. Please try again!");
+        }
+      } else {
+        setError("Failed to Sign In. Please try again!");
+      }
       setIsSigningIn(false);
     }
   };
