@@ -8,6 +8,7 @@ from helpers import CustomError, validate_prompt
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+
 async def api_end_point(prompt_engineering: str, max_tokens: int) -> dict:
     try:
         response = openai.Completion.create(
@@ -18,13 +19,22 @@ async def api_end_point(prompt_engineering: str, max_tokens: int) -> dict:
         return response
     except openai.error.APIError as error:
         status_code = getattr(error, "status_code", 500)
-        raise CustomError(status_code=status_code, detail=f"OpenAI API Error: {str(error)}")
+        raise CustomError(
+            status_code=status_code, detail=f"OpenAI API Error: {str(error)}"
+        )
     except openai.error.APIConnectionError as error:
         status_code = getattr(error, "status_code", 500)
-        raise CustomError(status_code=status_code, detail=f"Failed to connect to OpenAI API: {str(error)}")
+        raise CustomError(
+            status_code=status_code,
+            detail=f"Failed to connect to OpenAI API: {str(error)}",
+        )
     except openai.error.RateLimitError as error:
         status_code = getattr(error, "status_code", 500)
-        raise CustomError(status_code=status_code, detail=f"OpenAI API request exceeded rate limit: {str(error)}")
+        raise CustomError(
+            status_code=status_code,
+            detail=f"OpenAI API request exceeded rate limit: {str(error)}",
+        )
+
 
 async def branding_snippet(prompt: str) -> str:
     try:
@@ -33,7 +43,7 @@ async def branding_snippet(prompt: str) -> str:
 
         branding_text = response["choices"][0]["text"]
         branding_text = branding_text.strip()
-        branding_text = branding_text.replace('"', '')
+        branding_text = branding_text.replace('"', "")
         last_char = branding_text[-1]
 
         if last_char not in {".", ",", "?", "!"}:
@@ -43,6 +53,7 @@ async def branding_snippet(prompt: str) -> str:
     except CustomError as custom_error:
         raise custom_error
 
+
 async def generate_tagline(prompt: str) -> str:
     try:
         prompt_engineering = f"Create a catchy tagline that complements the brand based on the following prompt: {prompt}. The tagline should be short, memorable, and capture the essence of the brand's message."
@@ -50,7 +61,7 @@ async def generate_tagline(prompt: str) -> str:
 
         tagline_text = response["choices"][0]["text"]
         tagline_text = tagline_text.strip()
-        tagline_text = tagline_text.replace('"', '')
+        tagline_text = tagline_text.replace('"', "")
         last_char = tagline_text[-1]
 
         if last_char not in {".", ",", "?", "!"}:
@@ -59,6 +70,7 @@ async def generate_tagline(prompt: str) -> str:
         return tagline_text
     except CustomError as custom_error:
         raise custom_error
+
 
 async def branding_name(prompt: str) -> List[str]:
     try:
@@ -71,12 +83,13 @@ async def branding_name(prompt: str) -> List[str]:
         name_array = [
             item.split(". ", 1)[1] if ". " in item else item for item in name_array
         ]
-        name_array = [k.lower().strip().replace('"', '') for k in name_array]
+        name_array = [k.lower().strip().replace('"', "") for k in name_array]
         name_array = [k for k in name_array if len(k) > 4]
 
         return name_array
     except CustomError as custom_error:
         raise custom_error
+
 
 async def generate_keywords(prompt: str) -> List[str]:
     try:
@@ -89,12 +102,13 @@ async def generate_keywords(prompt: str) -> List[str]:
         keywords_array = [
             item.split(". ", 1)[1] if ". " in item else item for item in keywords_array
         ]
-        keywords_array = [k.lower().strip().replace('"', '') for k in keywords_array]
+        keywords_array = [k.lower().strip().replace('"', "") for k in keywords_array]
         keywords_array = [k for k in keywords_array if len(k) > 4]
 
         return keywords_array
     except CustomError as custom_error:
-            raise custom_error
+        raise custom_error
+
 
 async def main():
     parser = argparse.ArgumentParser()
@@ -118,6 +132,7 @@ async def main():
         print(tagline)
     except CustomError as custom_error:
         raise custom_error
+
 
 if __name__ == "__main__":
     asyncio.run(main())
