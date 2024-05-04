@@ -14,7 +14,7 @@ const BrandGuru: React.FC = () => {
   const [hasResults, setHasResults] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const CHAR_LIMIT: number = 40;
+  const CHAR_LIMIT: number = 300;
   const ENDPOINT: string = `https://494dlfchub.execute-api.us-west-1.amazonaws.com/prod/generate_all_together`;
 
   const onSubmit = () => {

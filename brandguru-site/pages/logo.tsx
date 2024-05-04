@@ -1,10 +1,10 @@
 import Head from "next/head";
-import BrandGuru from "@/components/brandguru";
 import {getAuth} from "firebase/auth";
 import {useAuthState} from "react-firebase-hooks/auth";
 import {useRouter} from "next/router";
 import {intitFirebase} from "@/firebase/firebaseApp";
 import {useEffect, useState} from "react";
+import BrandGuruLogo from "@/components/brandlogo";
 
 export default function Home() {
   intitFirebase();
@@ -57,7 +57,7 @@ export default function Home() {
             </button>
           </div>
           <div className='flex-grow'>
-            <BrandGuru />
+            <BrandGuruLogo />
           </div>
         </div>
       </>

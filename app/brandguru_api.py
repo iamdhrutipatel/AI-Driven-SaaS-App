@@ -110,7 +110,5 @@ async def generate_brand_logo_image_api(
     except Exception as error:
         status_code = getattr(error, "status_code", 500)
         raise CustomError(status_code=status_code, detail="Internal Server Error!")
-    
-    return {
-        "url": url
-    }
+
+    return {"url": url}

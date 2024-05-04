@@ -101,7 +101,17 @@ const Results: React.FC<ResultsProps> = (props) => {
         {resultSection("Prompt", "", props.prompt)}
         {resultSection("Brand Snippet", "", props.snippet)}
         {resultSection("Tagline", "", props.tagline)}
-        {resultSection("Brand Names", <div><p><span style={{color: "green"}}>✓</span> : Available, <span style={{color: "red"}}>x</span> : Not Available Brand Name</p><br /></div> , brandNamesElementHolder)}
+        {resultSection(
+          "Brand Names",
+          <div>
+            <p>
+              <span style={{color: "green"}}>✓</span> : Available,{" "}
+              <span style={{color: "red"}}>x</span> : Not Available Brand Name
+            </p>
+            <br />
+          </div>,
+          brandNamesElementHolder
+        )}
         {resultSection("Keywords", "", keywordsElementHolder)}
       </div>
       <button className='buttonSubmitBack' onClick={props.onBack}>

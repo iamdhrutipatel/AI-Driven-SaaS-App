@@ -17,7 +17,7 @@ body {
   }
 
   .buttonSubmitBack {
-    @apply bg-gradient-to-r from-teal-400 to-blue-500 disabled:opacity-50 w-full p-2 rounded-md text-white text-lg;
+    @apply bg-gradient-to-r from-teal-500 to-blue-500 disabled:opacity-50 w-full p-2 rounded-md text-white text-lg;
   }
 
   .textCyan {
@@ -40,12 +40,11 @@ body {
     @apply text-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-cyan-600 text-xl font-bold mb-1;
   }
 
-  .footer{
+  .footer {
     @apply text-slate-50 text-center font-normal mb-5;
   }
 
   .buttonSignOut {
-    @apply bg-gradient-to-r from-teal-400 to-blue-500 p-2 w-auto rounded-md text-white text-lg mt-2;
+    @apply bg-gradient-to-r from-teal-500 to-blue-500 p-2 w-auto rounded-md text-white text-lg mt-2;
   }
 }
-

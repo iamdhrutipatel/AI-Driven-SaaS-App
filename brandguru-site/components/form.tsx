@@ -33,11 +33,11 @@ const Form: React.FC<FormProps> = (props) => {
 
   return (
     <>
-      <div className={"gradientTextStyle" + " text-base font-normal"}>
+      <div className={"gradientTextStyle" + " text-base font-semibold"}>
         <p>
           {" "}
           Share your brand&apos;s story; I&apos;ll craft a snippet, suggest some
-          brand names, and keywords for you :)
+          brand names, and keywords for you!
         </p>
       </div>
 

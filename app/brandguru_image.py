@@ -91,7 +91,7 @@ async def main():
     theme_description = args.theme
 
     try:
-        # image = await generate_image("Evergreen", "eco-friendly home products", "elegance and modernity", "environmental sustainability", "sophisticated and impactful", "contemporary and minimalist", "earth tones", "natural")
+        # image = await generate_image("Evergreen", "Eco-friendly home products", "Elegance and modernity", "Environmental sustainability", "Sophisticated and impactful", "Contemporary and minimalist", "Earth tones", "Natural")
         image = await generate_image(
             brand_name,
             brand_identity,
