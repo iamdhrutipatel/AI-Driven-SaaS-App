@@ -5,6 +5,7 @@ import {useRouter} from "next/router";
 import {intitFirebase} from "@/firebase/firebaseApp";
 import {useEffect, useState} from "react";
 import BrandGuruLogo from "@/components/brandlogo";
+import Link from "next/link";
 
 export default function Home() {
   intitFirebase();
@@ -45,12 +46,12 @@ export default function Home() {
           <div className='p-4 flex justify-between items-center'>
             <p className='buttonSignOut'>Welcome, {user?.displayName}</p>
             <div className='flex items-center space-x-4 mr-28'>
-              <a href='/dashboard' className='buttonSignOut'>
+              <Link href='/dashboard' className='buttonSignOut'>
                 Brand Identity Assistant
-              </a>
-              <a href='/logo' className='buttonSignOut'>
+              </Link>
+              <Link href='/logo' className='buttonSignOut'>
                 Brand Logo Assistant
-              </a>
+              </Link>
             </div>
             <button className='buttonSignOut' onClick={() => auth.signOut()}>
               Sign Out
