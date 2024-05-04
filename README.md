@@ -10,7 +10,7 @@
 
 ## Overview
 
-BrandGuru is designed to be an AI assistant for marketing professionals, providing an efficient and intelligent solution for content generation. The platform focuses on creating brand-specific snippets, names, and keywords to enhance marketing strategies.
+BrandGuru serves as the ultimate AI assistant for marketing professionals, revolutionizing content and logo creation with unparalleled efficiency and intelligence. With a keen focus on brand identity, the platform crafts bespoke snippets, taglines, names, and keywords tailored to elevate marketing strategies. Additionally, BrandGuru delivers customized brand logos designed precisely to your specifications, empowering brands to stand out in today's competitive landscape.
 
 ## Key Technologies
 
@@ -27,10 +27,11 @@ BrandGuru is designed to be an AI assistant for marketing professionals, providi
 
 ## Features
 
-- **AI-Driven Content Generation:** Utilize OpenAI's capabilities for intelligent content creation.
-- **Streamlined Web Interface:** User-friendly interface for a seamless experience.
-- **Brand-Specific Snippet Creation:** Generate customized snippets tailored to each brand.
-- **Name and Keyword Optimization:** Efficiently create and optimize brand names and keywords.
+- **AI-Driven Content and Logo Generation:** Harness the power of OpenAI for intelligent content and logo creation, ensuring unique and engaging brand representations.
+- **Streamlined Web Interface:** Deliver a user-friendly interface designed for simplicity and efficiency, enhancing the overall user experience.
+- **Brand-Specific Snippet Creation:** Craft customized brand snippets that capture the essence of each brand, enabling effective storytelling and brand representation.
+- **Tagline, Name, and Keyword Optimization:** Efficiently generate and optimize brand taglines, names, and keywords to enhance brand visibility and relevance in the market.
+- **US-Trademark API Integration:** Implement US-Trademark API to verify the availability of greeted names, preventing potential legal issues and ensuring brand uniqueness and compliance.
 
 ## Architecture
 ![BrandGuru Architecture](https://github.com/iamdhrutipatel/AI-Driven-SaaS-App/assets/58872872/6c6c9345-a257-4fe7-8c04-fc7186ba7189)
