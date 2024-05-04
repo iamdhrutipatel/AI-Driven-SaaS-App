@@ -44,10 +44,10 @@ def validate_prompt(input_str: str, field_name: str):
             status_code=400, detail=f"{field_name}: Input language must be English"
         )
 
-    if not re.match("^[a-zA-Z0-9 ,!\-]+$", input_str):
+    if not re.match("^[a-zA-Z0-9 ',!\-]+$", input_str):
         raise CustomError(
             status_code=400,
-            detail=f"{field_name}: Only alphanumeric characters and ',!\-' are allowed",
+            detail=f"{field_name}: Only alphanumeric characters and ',!'\-' are allowed",
         )
 
     return input_str
